@@ -10,6 +10,9 @@ function init() {
     if (localStorage['data'])
     {
         data = JSON.parse(localStorage['data'])
+        if (data[key] === undefined) {
+            data[key] = 0
+        }
         console.log(data)
         cnt.innerHTML = data[key]
     } else {
