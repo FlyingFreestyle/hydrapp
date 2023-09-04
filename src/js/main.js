@@ -23,25 +23,20 @@ function init() {
     cnt.innerHTML = data[key]
 }
 
-init()
-
-addGlass.addEventListener('click', () => {
-    const key = new Date().toISOString().slice(0, 10)
-    currentKeyExists(key)
-    data[key] = data[key] + 1
-    localStorage.setItem('data', JSON.stringify(data))
-    cnt.innerHTML = data[key]
-})
-
-subGlass.addEventListener('click', () => {
+function operate(num) {
     const key = new Date().toISOString().slice(0, 10)
     currentKeyExists(key)
     if (data[key] > 0) {
-        data[key] = data[key] - 1
-        localStorage.setItem('data', JSON.stringify(data))
-        cnt.innerHTML = data[key]
-    }
-    else {
+        data[key] = data[key] + num
+    } else {
         console.log("You can't go below 0 glasses")
     }
-})
+    localStorage.setItem('data', JSON.stringify(data))
+    cnt.innerHTML = data[key]
+}
+
+init()
+
+addGlass.addEventListener('click', operate(1))
+
+subGlass.addEventListener('click', operate(-1))
