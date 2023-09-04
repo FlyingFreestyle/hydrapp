@@ -5,28 +5,29 @@ const subGlass = document.querySelector('.subtract-glass--js')
 
 let data = {}
 
+function currentKeyExists(key) {
+    if (data[key] === undefined) {
+        console.log(`No data found for ${key}. Setting to 0`)
+        data[key] = 0
+    }
+}
+
 function init() {
     const key = new Date().toISOString().slice(0, 10)
-    if (localStorage['data'])
-    {
+    if (localStorage['data']) {
         data = JSON.parse(localStorage['data'])
-        if (data[key] === undefined) {
-            data[key] = 0
-        }
-        console.log(data)
-        cnt.innerHTML = data[key]
-    } else {
-        data[key] = 0
-        localStorage.setItem('data', JSON.stringify(data))
-        console.log(`No data found for ${key}. Setting to 0`)
-        cnt.innerHTML = data[key]
     }
+    currentKeyExists(key)
+    console.log(data)
+    localStorage.setItem('data', JSON.stringify(data))
+    cnt.innerHTML = data[key]
 }
 
 init()
 
 addGlass.addEventListener('click', () => {
     const key = new Date().toISOString().slice(0, 10)
+    currentKeyExists(key)
     data[key] = data[key] + 1
     localStorage.setItem('data', JSON.stringify(data))
     cnt.innerHTML = data[key]
@@ -34,7 +35,7 @@ addGlass.addEventListener('click', () => {
 
 subGlass.addEventListener('click', () => {
     const key = new Date().toISOString().slice(0, 10)
-    let val = parseInt(localStorage[key])
+    currentKeyExists(key)
     if (data[key] > 0) {
         data[key] = data[key] - 1
         localStorage.setItem('data', JSON.stringify(data))
