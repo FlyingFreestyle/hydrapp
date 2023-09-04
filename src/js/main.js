@@ -4,29 +4,32 @@ const addGlass = document.querySelector('.add-glass--js')
 const subGlass = document.querySelector('.subtract-glass--js')
 
 const key = new Date().toISOString().slice(0, 10)
+let data = {}
 
-if (localStorage[key])
+if (localStorage['data'])
 {
-    console.log(`${key}: ${localStorage[key]}`)
-    cnt.innerHTML = parseInt(localStorage[key])
+    data = JSON.parse(localStorage['data'])
+    console.log(data)
+    cnt.innerHTML = data[key]
 } else {
+    data[key] = 0
+    localStorage.setItem('data', JSON.stringify(data))
     console.log(`No data found for ${key}. Setting to 0`)
-    cnt.innerHTML = 0
-    localStorage.setItem(key, 0)
+    cnt.innerHTML = data[key]
 }
 
 addGlass.addEventListener('click', () => {
-    let val = parseInt(localStorage[key]) + 1
-    localStorage.setItem(key, val)
-    cnt.innerHTML = val
+    data[key] = data[key] + 1
+    localStorage.setItem('data', JSON.stringify(data))
+    cnt.innerHTML = data[key]
 })
 
 subGlass.addEventListener('click', () => {
     let val = parseInt(localStorage[key])
-    if (val > 0) {
-        val = val - 1
-        localStorage.setItem(key, val)
-        cnt.innerHTML = val
+    if (data[key] > 0) {
+        data[key] = data[key] - 1
+        localStorage.setItem('data', JSON.stringify(data))
+        cnt.innerHTML = data[key]
     }
     else {
         console.log("You can't go below 0 glasses")
