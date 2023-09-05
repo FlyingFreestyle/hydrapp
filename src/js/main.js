@@ -38,10 +38,6 @@ function operate(num) {
 
 init()
 
-addGlass.addEventListener('click', function() {
-    operate(1)
-})
+addGlass.addEventListener('click', operate(1))
 
-subGlass.addEventListener('click', function() {
-    operate(-1)
-})
+subGlass.addEventListener('click', operate(-1))
