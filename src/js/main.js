@@ -18,7 +18,6 @@ function init() {
         data = JSON.parse(localStorage['data'])
     }
     currentKeyExists(key)
-    console.log(data)
     localStorage.setItem('data', JSON.stringify(data))
     cnt.innerHTML = data[key]
 }
