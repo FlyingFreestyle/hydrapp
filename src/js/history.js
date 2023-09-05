@@ -1,6 +1,5 @@
 const table = document.querySelector(".table--js");
 const data = JSON.parse(localStorage['data'])
-console.log(data)
 
 function generateTableHead(table, data) {
     let thead = table.createTHead();
@@ -15,7 +14,6 @@ function generateTableHead(table, data) {
 
 function generateTable(table, data) {
     for (const [key, value] of Object.entries(data)) {
-        console.log(key, value);
         let row = table.insertRow()
         let dateCell = row.insertCell()
         let dateText = document.createTextNode(key)
@@ -25,24 +23,9 @@ function generateTable(table, data) {
         let valueText = document.createTextNode(value)
         valueCell.appendChild(valueText)
     }
-
-    // for (let item in data) {
-    //     console.log(item, data[item])
-    //     let row = table.insertRow();
-    //     let cell = row.insertCell();
-    //     let text = document.createTextNode(item);
-    //     cell.appendChild(text);
-    // }
 }
 
 
 generateTableHead(table, ["date", "glasses"])
 console.log(table)
 generateTable(table, data)
-
-
-// Object.entries(data).forEach(([key, value]) => {
-//     console.log(`${key}: ${value}`)
-//     let el = document.createElement('tr')
-//     el.classList
-//   })
