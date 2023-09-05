@@ -26,7 +26,7 @@ function init() {
 function operate(num) {
     const key = new Date().toISOString().slice(0, 10)
     currentKeyExists(key)
-    if (data[key] > 0) {
+    if (data[key] >= 0) {
         data[key] = data[key] + num
     } else {
         console.log("You can't go below 0 glasses")
