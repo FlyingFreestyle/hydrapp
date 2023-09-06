@@ -46,7 +46,7 @@ init()
 const keyInterval = setInterval(() => {
     updateKey()
     updateCounterAndStorage()
-}, 10*1000);
+}, 20*1000);
 
 addGlass.addEventListener('click', function() {
     operate(1)
