@@ -8,38 +8,37 @@ let key = new Date().toISOString().slice(0, 10)
 
 function updateKey() {
     key = new Date().toISOString().slice(0, 10)
+    updateCounterAndStorage()
 }
 
-function currentKeyExists(key) {
+function updateCounterAndStorage() {
     if (data[key] === undefined) {
         console.log(`No data found for ${key}. Setting to 0`)
         data[key] = 0
     }
+    cnt.textContent = data[key]
+    localStorage.setItem('data', JSON.stringify(data))
 }
 
 function init() {
     if (localStorage['data']) {
         data = JSON.parse(localStorage['data'])
     }
-    currentKeyExists(key)
-    localStorage.setItem('data', JSON.stringify(data))
-    cnt.innerHTML = data[key]
+    updateCounterAndStorage()
 }
 
 function operate(num) {
-    currentKeyExists(key)
     const sum = data[key] + num
     if (sum >= 0) {
         data[key] = sum
     } else {
         console.log("You can't go below 0 glasses")
     }
-    localStorage.setItem('data', JSON.stringify(data))
-    cnt.innerHTML = data[key]
+    updateCounterAndStorage()
 }
 
 init()
-const interval = setInterval(updateTimestamp, 10*1000);
+const keyInterval = setInterval(updateKey, 10*1000);
 
 addGlass.addEventListener('click', function() {
     operate(1)
