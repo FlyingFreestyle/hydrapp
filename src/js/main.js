@@ -4,11 +4,15 @@ const addGlass = document.querySelector('.add-glass--js')
 const subGlass = document.querySelector('.subtract-glass--js')
 
 let data = {}
-let key = new Date().toISOString().slice(0, 10)
+let key = ""
 
 function updateKey() {
-    key = new Date().toISOString().slice(0, 10)
-    updateCounterAndStorage()
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(now.getDate()).padStart(2, '0');
+
+    key = `${year}-${month}-${day}`;
 }
 
 function updateCounterAndStorage() {
@@ -24,6 +28,7 @@ function init() {
     if (localStorage['data']) {
         data = JSON.parse(localStorage['data'])
     }
+    updateKey()
     updateCounterAndStorage()
 }
 
@@ -38,7 +43,10 @@ function operate(num) {
 }
 
 init()
-const keyInterval = setInterval(updateKey, 10*1000);
+const keyInterval = setInterval(() => {
+    updateKey()
+    updateCounterAndStorage()
+}, 10*1000);
 
 addGlass.addEventListener('click', function() {
     operate(1)
