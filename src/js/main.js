@@ -4,6 +4,11 @@ const addGlass = document.querySelector('.add-glass--js')
 const subGlass = document.querySelector('.subtract-glass--js')
 
 let data = {}
+let key = new Date().toISOString().slice(0, 10)
+
+function updateKey() {
+    key = new Date().toISOString().slice(0, 10)
+}
 
 function currentKeyExists(key) {
     if (data[key] === undefined) {
@@ -13,7 +18,6 @@ function currentKeyExists(key) {
 }
 
 function init() {
-    const key = new Date().toISOString().slice(0, 10)
     if (localStorage['data']) {
         data = JSON.parse(localStorage['data'])
     }
@@ -23,7 +27,6 @@ function init() {
 }
 
 function operate(num) {
-    const key = new Date().toISOString().slice(0, 10)
     currentKeyExists(key)
     const sum = data[key] + num
     if (sum >= 0) {
@@ -36,6 +39,7 @@ function operate(num) {
 }
 
 init()
+const interval = setInterval(updateTimestamp, 10*1000);
 
 addGlass.addEventListener('click', function() {
     operate(1)
